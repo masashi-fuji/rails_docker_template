@@ -10,9 +10,9 @@ sed -i '' "s/# gem \'therubyracer\'/gem \'therubyracer\'/g" Gemfile
 
 cp -f template/database.yml config/database.yml
 
+docker-compose run --rm rails bundle exec spring binstub --all
+
 rm -rf .git
 git init
 git add .
 git commit -m "init"
-
-docker-compose run --rm rails bundle exec spring binstub --all
