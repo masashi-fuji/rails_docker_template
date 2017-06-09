@@ -4,9 +4,11 @@ cp .env.dev.sample .env.dev
 
 docker-compose build
 
-docker-compose run --rm rails rails new . --force --database=postgresql --skip-bundle --skip-git --skip-test && bundle update
+docker-compose run --rm rails rails new . --force --database=postgresql --skip-bundle --skip-git --skip-test -m https://gist.githubusercontent.com/masashi-fuji/26e4f31397e39193dbf002a8b714ea38/raw/slim-rails.rb
 
 sed -i '' "s/# gem \'therubyracer\'/gem \'therubyracer\'/g" Gemfile
+
+docker-compose run --rm rails bundle update
 
 cp -f template/database.yml config/database.yml
 
