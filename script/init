@@ -13,6 +13,7 @@ docker-compose run --rm rails bundle update
 cp -f template/database.yml config/database.yml
 
 docker-compose run --rm rails bundle exec spring binstub --all
+docker-compose run --rm rails erb2slim app/views app/views -d
 
 rm -rf .git
 git init
