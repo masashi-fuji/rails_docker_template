@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-# A sample Gemfile
+ruby '2.4.1'
+
 source 'https://rubygems.org'
 
-gem 'rails', '5.0.2'
+gem 'rails', '5.1.1'
