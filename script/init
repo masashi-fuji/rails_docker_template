@@ -6,6 +6,8 @@ docker-compose build
 
 docker-compose run --rm rails rails new . --force --database=postgresql --skip-bundle --skip-git --skip-test && bundle update
 
-cp -f template/database.yml config/database.yml
+sed -i '' "s/# gem \'therubyracer\'/gem \'therubyracer\'/g" Gemfile
 
-docker-compose run --rm rails bundle exec spring binstub --all
+#cp -f template/database.yml config/database.yml
+
+#docker-compose run --rm rails bundle exec spring binstub --all
