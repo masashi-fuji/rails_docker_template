@@ -8,6 +8,6 @@ docker-compose run --rm rails rails new . --force --database=postgresql --skip-b
 
 sed -i '' "s/# gem \'therubyracer\'/gem \'therubyracer\'/g" Gemfile
 
-#cp -f template/database.yml config/database.yml
+cp -f template/database.yml config/database.yml
 
-#docker-compose run --rm rails bundle exec spring binstub --all
+docker-compose run --rm rails bundle exec spring binstub --all
