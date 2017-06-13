@@ -37,6 +37,11 @@ services:
     volumes:
       - "db:/var/lib/postgresql/data"
       - "bundle:/usr/local/bundle"
+  mailcatcher:
+    image: "pocari/mailcatcher"
+    ports:
+      - "1080:1080"
+      - "1025:1025"
 
 volumes:
   db:
