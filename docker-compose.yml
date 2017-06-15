@@ -17,6 +17,8 @@ services:
       - db
     tty: true
     stdin_open: true
+    environment:
+      - "TZ=Japan"
   spring:
     <<: *app_base
     command: ["bundle", "exec", "spring", "server"]
