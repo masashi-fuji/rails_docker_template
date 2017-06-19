@@ -6,6 +6,13 @@ docker-compose build
 
 docker-compose run --rm rails rails new . --force --database=postgresql --skip-bundle --skip-git --skip-test -m https://gist.githubusercontent.com/masashi-fuji/26e4f31397e39193dbf002a8b714ea38/raw/slim-rails.rb
 
+mv Gemfile bak.Gemfile
+touch Gemfile
+echo ruby \'2.4.1\' >> Gemfile
+echo >> Gemfile
+cat bak.Gemfile >> Gemfile
+rm bak.Gemfile
+
 sed -i '' "s/# gem \'therubyracer\'/gem \'therubyracer\'/g" Gemfile
 
 docker-compose run --rm rails bundle update
