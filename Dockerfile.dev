@@ -19,6 +19,26 @@ RUN apt-get update && apt-get install -y curl apt-transport-https wget && \
 RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
     apt-get install nodejs
 
+# chromedriverをインストール
+RUN apt-get install -y unzip libnss3 && \
+    wget https://chromedriver.storage.googleapis.com/2.37/chromedriver_linux64.zip && \
+    unzip chromedriver_linux64.zip -d /usr/local/bin
+RUN    rm chromedriver_linux64.zip
+
+# Google Noto Fonts
+RUN apt-get install -y udev ttf-freefont chromium
+RUN mkdir /noto
+ADD https://noto-website.storage.googleapis.com/pkgs/NotoSansCJKjp-hinted.zip /noto
+WORKDIR /noto
+RUN unzip NotoSansCJKjp-hinted.zip && \
+    mkdir -p /usr/share/fonts/noto && \
+    cp *.otf /usr/share/fonts/noto && \
+    chmod 644 -R /usr/share/fonts/noto/ && \
+    fc-cache -fv
+WORKDIR /
+RUN rm -rf /noto
+
+# ENTRYKITをインストール
 ENV ENTRYKIT_VERSION 0.4.0
 
 RUN wget https://github.com/progrium/entrykit/releases/download/v${ENTRYKIT_VERSION}/entrykit_${ENTRYKIT_VERSION}_Linux_x86_64.tgz \

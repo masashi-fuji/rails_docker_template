@@ -9,7 +9,7 @@ services:
       - ./tmp/db:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-  rails: &app_base
+  app:
     build:
       context: .
       dockerfile: "Dockerfile.dev"
@@ -26,31 +26,13 @@ services:
     stdin_open: true
     environment:
       - "TZ=Japan"
-  # spring:
-  #   <<: *app_base
-  #   command: ["bundle", "exec", "spring", "server"]
-  #   ports: []
-  #   tty: false
-  #   stdin_open: false
-
-  # data:
-  #   image: "busybox"
-  #   volumes:
-  #     - "db:/var/lib/postgresql/data"
-  #     - "bundle:/usr/local/bundle"
-  # mailcatcher:
-  #   image: "pocari/mailcatcher"
-  #   ports:
-  #     - "1080:1080"
-  #     - "1025:1025"
-  # chrome:
-  #   image: selenium/standalone-chrome-debug:3.9.1-actinium
-  #   ports:
-  #     - 4444:4444
-  #     - 5900:5900
-
-# volumes:
-#   db:
-#     driver: local
-  # bundle:
-  #   driver: local
+  mailcatcher:
+    image: "pocari/mailcatcher"
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+  chrome:
+    image: selenium/standalone-chrome-debug:3.9.1-actinium
+    ports:
+      - 4444:4444
+      - 5900:5900

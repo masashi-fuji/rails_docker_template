@@ -1,24 +1,20 @@
 #!/usr/bin/env bash
-
 cp .env.dev.sample .env.dev
 
 docker-compose build
 
-# docker-compose run --rm rails rails new . --force --database=postgresql --skip-bundle --skip-git --skip-test -m https://gist.githubusercontent.com/masashi-fuji/26e4f31397e39193dbf002a8b714ea38/raw/slim-rails.rb
-
-docker-compose run --rm rails rails new . --force --database=postgresql --skip-bundle --skip-git --skip-test
+docker-compose run --rm app rails new . --force --database=postgresql --skip-bundle --skip-git --skip-test
 
 sed -i '' "s/# gem \'mini_racer\'/gem \'mini_racer\'/g" Gemfile
 
-docker-compose run --rm rails bundle update
-docker-compose run --rm rails bundle install
+docker-compose run --rm app bundle update
+docker-compose run --rm app bundle install
 
-#cp -f template/database.yml config/database.yml
+cp -f template/database.yml config/database.yml
 
-docker-compose run --rm rails bundle exec spring binstub --all
-#docker-compose run --rm rails erb2slim app/views app/views -d
+docker-compose run --rm app bundle exec spring binstub --all
 
-# rm -rf .git
-# git init
-# git add .
-# git commit -m "init" -q
+rm -rf .git
+git init
+git add .
+git commit -m "init" -q
