@@ -11,8 +11,9 @@ docker-compose run --rm rails rails new . --force --database=postgresql --skip-b
 sed -i '' "s/# gem \'mini_racer\'/gem \'mini_racer\'/g" Gemfile
 
 docker-compose run --rm rails bundle update
+docker-compose run --rm rails bundle install
 
-cp -f template/database.yml config/database.yml
+#cp -f template/database.yml config/database.yml
 
 docker-compose run --rm rails bundle exec spring binstub --all
 #docker-compose run --rm rails erb2slim app/views app/views -d
