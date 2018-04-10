@@ -1,16 +1,30 @@
-version: '2'
+version: '3.6'
 services:
+  db:
+    image: "postgres:10"
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=password"
+    # volumes_from:
+    #   - data
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
   rails: &app_base
     build:
       context: .
       dockerfile: "Dockerfile.dev"
-    command: ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
+    #command: ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
+    command: tail -f /dev/null
     env_file:
       - "./.env.dev"
     volumes:
       - ".:/app"
-    volumes_from:
-      - data
+    # volumes_from:
+    #   - data
+    # volumes:
+    #   - data
     ports:
       - "3000:3000"
     depends_on:
@@ -19,39 +33,31 @@ services:
     stdin_open: true
     environment:
       - "TZ=Japan"
-  spring:
-    <<: *app_base
-    command: ["bundle", "exec", "spring", "server"]
-    ports: []
-    tty: false
-    stdin_open: false
-  db:
-    image: "postgres:10"
-    environment:
-      - "POSTGRES_USER=postgres"
-      - "POSTGRES_PASSWORD=password"
-    volumes_from:
-      - data
-    ports:
-      - "5432:5432"
-  data:
-    image: "busybox"
-    volumes:
-      - "db:/var/lib/postgresql/data"
-      - "bundle:/usr/local/bundle"
-  mailcatcher:
-    image: "pocari/mailcatcher"
-    ports:
-      - "1080:1080"
-      - "1025:1025"
-  chrome:
-    image: selenium/standalone-chrome-debug:3.9.1-actinium
-    ports:
-      - 4444:4444
-      - 5900:5900
+  # spring:
+  #   <<: *app_base
+  #   command: ["bundle", "exec", "spring", "server"]
+  #   ports: []
+  #   tty: false
+  #   stdin_open: false
 
-volumes:
-  db:
-    driver: local
-  bundle:
-    driver: local
+  # data:
+  #   image: "busybox"
+  #   volumes:
+  #     - "db:/var/lib/postgresql/data"
+  #     - "bundle:/usr/local/bundle"
+  # mailcatcher:
+  #   image: "pocari/mailcatcher"
+  #   ports:
+  #     - "1080:1080"
+  #     - "1025:1025"
+  # chrome:
+  #   image: selenium/standalone-chrome-debug:3.9.1-actinium
+  #   ports:
+  #     - 4444:4444
+  #     - 5900:5900
+
+# volumes:
+#   db:
+#     driver: local
+  # bundle:
+  #   driver: local
