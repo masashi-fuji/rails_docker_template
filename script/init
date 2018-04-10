@@ -13,7 +13,7 @@ echo >> Gemfile
 cat bak.Gemfile >> Gemfile
 rm bak.Gemfile
 
-sed -i '' "s/# gem \'therubyracer\'/gem \'mini_racer\'/g" Gemfile
+sed -i '' "s/# gem \'mini_racer\'/gem \'mini_racer\'/g" Gemfile
 
 docker-compose run --rm rails bundle update
 
